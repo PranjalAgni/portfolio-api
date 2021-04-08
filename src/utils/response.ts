@@ -1,0 +1,18 @@
+import { Response } from "express";
+
+type IFormatResponse = {
+  res: Response;
+  result?: unknown;
+  error?: Error;
+};
+export const formatResponse = ({
+  res,
+  result,
+  error
+}: IFormatResponse): Response<string, Record<string, string>> => {
+  return res.json({
+    status: res.statusCode,
+    result,
+    error
+  });
+};
