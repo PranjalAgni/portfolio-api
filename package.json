@@ -7,7 +7,8 @@
     "build": "npm run clean && tsc",
     "clean": "rimraf ./dist",
     "watch": "tsc -w",
-    "start": "npm run build && node dist/server.js",
+    "prestart": "npm run build",
+    "start": "cross-env NODE_ENV=production node dist/server.js",
     "start:dev": "nodemon",
     "seed": "ts-node --files src/utils/seed.ts",
     "lint": "eslint . --ext .ts"
@@ -44,6 +45,7 @@
     "app-root-path": "^3.0.0",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "dotenv-safe": "^8.2.0",
     "express": "^4.17.1",
     "helmet": "^4.4.1",

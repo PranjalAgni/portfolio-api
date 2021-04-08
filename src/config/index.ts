@@ -1,6 +1,6 @@
 import appRoot from "app-root-path";
 
-process.env.NODE_ENV = "development" || process.env.NODE_ENV;
+process.env.NODE_ENV = process.env.NODE_ENV || "development";
 
 export default {
   isDev: process.env.NODE_ENV === "development",

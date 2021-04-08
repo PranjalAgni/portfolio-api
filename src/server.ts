@@ -1,6 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require("dotenv-safe").config({
-  allowEmptyValues: true
+  allowEmptyValues: true,
+  silent: true
 });
 require("module-alias/register");
 import config from "@config/index";
