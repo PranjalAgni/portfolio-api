@@ -1,11 +1,18 @@
 import {
   coerce,
   defaulted,
+  define,
+  min,
   number,
   object,
   optional,
+  size,
   string
 } from "superstruct";
+
+import isEmail from "is-email";
+
+const email = () => define("email", (value) => isEmail(value));
 
 export const RandomQuotesStruct = object({
   maxLength: optional(coerce(number(), string(), (value) => +value)),
@@ -23,4 +30,10 @@ export const RandomQuotesStruct = object({
       0
     )
   )
+});
+
+export const SubmitContactStruct = object({
+  email: email(),
+  name: size(string(), 3, 20),
+  description: size(string(), 5, 300)
 });
