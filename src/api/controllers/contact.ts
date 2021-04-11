@@ -1,9 +1,10 @@
+import models from "@models/index";
 import { asyncHandler } from "@utils/errors";
-import logger from "@utils/logger";
+import { formatResponse } from "@utils/response";
 import { SubmitContactStruct } from "@utils/validation";
 import { Router } from "express";
-import { assert, validate } from "superstruct";
 import createError from "http-errors";
+import { validate } from "superstruct";
 const contactRouter = Router();
 
 contactRouter.post(
@@ -16,9 +17,8 @@ contactRouter.post(
       return next(createError(400, err));
     }
 
-    return res.json({
-      ...data
-    });
+    await models.Contact.create(data);
+    return formatResponse({ res, result: { success: true } });
   })
 );
 
