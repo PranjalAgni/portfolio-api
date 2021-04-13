@@ -20,13 +20,8 @@ contactRouter.post(
       return next(createError(400, err));
     }
 
-    try {
-      await models.Contact.create(data);
-    } catch (ex) {
-      logger.error(
-        `Error occured while submitting contact ${JSON.stringify(ex)}`
-      );
-    }
+    await models.Contact.create(data);
+
     return formatResponse({ res, result: { success: true } });
   })
 );

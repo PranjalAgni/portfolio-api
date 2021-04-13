@@ -4,6 +4,7 @@ import createError from "http-errors";
 import moesif from "moesif-nodejs";
 import config from "./config";
 import requestIp from "request-ip";
+import logger from "@utils/logger";
 
 export const notFound = (
   req: Request,
@@ -18,17 +19,21 @@ export const notFound = (
 
 export const errorHandler = (
   error: Error,
-  _req: Request,
+  req: Request,
   res: Response,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _next: NextFunction
 ): Response => {
-  const statusCode = res.statusCode || StatusCodes.INTERNAL_SERVER_ERROR;
+  let statusCode = res.statusCode || StatusCodes.INTERNAL_SERVER_ERROR;
+  if (statusCode === 200) statusCode = StatusCodes.INTERNAL_SERVER_ERROR;
   res.status(statusCode);
+  logger.error(
+    `Error occured at route ${req.url} ${JSON.stringify(error.message)}`
+  );
   return res.json({
     status: statusCode,
     result: null,
-    error: error.stack
+    error: error
   });
 };
 

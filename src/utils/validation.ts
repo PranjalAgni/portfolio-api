@@ -1,18 +1,21 @@
+import isEmail from "is-email";
 import {
   coerce,
   defaulted,
   define,
-  min,
   number,
   object,
   optional,
   size,
   string
 } from "superstruct";
+import logger from "./logger";
 
-import isEmail from "is-email";
-
-const email = () => define("email", (value) => isEmail(value));
+const email = () =>
+  define("email", (value) => {
+    logger.info(value);
+    return isEmail(value);
+  });
 
 export const RandomQuotesStruct = object({
   maxLength: optional(coerce(number(), string(), (value) => +value)),
@@ -35,5 +38,5 @@ export const RandomQuotesStruct = object({
 export const SubmitContactStruct = object({
   email: email(),
   name: size(string(), 3, 20),
-  description: size(string(), 5, 300)
+  message: size(string(), 5, 300)
 });
