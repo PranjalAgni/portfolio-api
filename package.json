@@ -7,9 +7,10 @@
     "node": "14.x"
   },
   "scripts": {
-    "build": "npm run clean && tsc",
+    "build": "npm run clean && npm run tsc",
     "clean": "rimraf ./dist",
-    "watch": "tsc -w",
+    "tsc": "tsc",
+    "watch": "npm run tsc -w",
     "prestart": "npm run build",
     "start": "cross-env NODE_ENV=production node dist/server.js",
     "start:dev": "nodemon",
