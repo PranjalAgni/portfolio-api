@@ -3,7 +3,8 @@ import { Response } from "express";
 type IFormatResponse = {
   res: Response;
   result?: unknown;
-  error?: Error;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  error?: Error | Record<string, any>;
 };
 export const formatResponse = ({
   res,
