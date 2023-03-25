@@ -3,6 +3,7 @@ import logger from "@utils/logger";
 import config from "@config/index";
 
 const connectDB = async (): Promise<void> => {
+  logger.info("Connecting app to mongoDB");
   await mongoose.connect(config.db.url, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
