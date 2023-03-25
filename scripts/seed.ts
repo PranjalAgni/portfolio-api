@@ -4,15 +4,16 @@ require("dotenv-safe").config({
 });
 
 import "module-alias/register";
-
-import models from "@models/index";
-import connectDB from "../db";
-import quotes from "../../data/quotes.json";
-import logger from "./logger";
+import mongoose from "mongoose";
+import models from "../src/models";
+import connectDB from "../src/db";
+import quotes from "../data/quotes.json";
+import logger from "../src/utils/logger";
 
 const startSeeding = async () => {
   try {
     await connectDB();
+    logger.info("Seeding started");
     const trimmedQuotes = quotes.map(
       ({ content, author, authorSlug, tags, length }) => ({
         content,
@@ -25,10 +26,10 @@ const startSeeding = async () => {
 
     await models.Quotes.insertMany(trimmedQuotes);
     logger.info("Seeding Completed");
-    return;
+    process.exit();
   } catch (ex) {
     logger.error(ex);
   }
 };
 
-// startSeeding();
+startSeeding();
